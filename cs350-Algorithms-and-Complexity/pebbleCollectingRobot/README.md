@@ -1,11 +1,11 @@
 # Pebble Collecting Robot
 
-This code was written by the author below in its entirety. However, ChatGPT (March 23, 2023 version) was asked to generate the README.md.
-
 Author: Brooke Czerwinski
 Course: CS350 Algorithms and Complexity
 
 A tabular solution for the pebble collecting robot problem.
+
+This code was written by the author below in its entirety. However, ChatGPT (March 23, 2023 version) was asked to generate the README.md.
 
 ## Overview
 
