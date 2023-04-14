@@ -1,5 +1,7 @@
 #----------------------------------------------------------------------
 # Makefile for CS415/515 Assignment 1
+# Written by Prof. Jingke Li (lij@pdx.edu) for this class
+# NOT written by Brooke Czerwinski. 
 #----------------------------------------------------------------------
 
 .PRECIOUS: %.cpp %.java
