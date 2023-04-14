@@ -13,18 +13,14 @@
 
 #include "calendar.h"
 
-
 using std::cout;
 using std::endl;
 
 
-
-int main()
-{
+int main() {
 	Calendar aCalendar;
 
 	aCalendar.interface();
-
 	cout << endl << endl;
 	return 0;
 }
