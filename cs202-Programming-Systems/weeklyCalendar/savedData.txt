@@ -1,0 +1,6 @@
+1;1;2021;School;CS202;SOMETHING FROM THE PAST; PASTTTTTTTT
+2;1;2021;Grocery;Bananas;22;Playstation 5;1;Cat Food;16
+2;1;2021;School;CS 202;Finish program #2;Finish it today!!!
+2;1;2021;Appointment;5pm;Doctor Appointment;notes for the appointment here
+2;12;2021;School;CS202;Turn in ze programmmm;do it!!! you can do it!!
+12;12;2021;School;CS202; SOMETHING FROM THE FUTURE; FUTUREEEEE

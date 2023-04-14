@@ -2,8 +2,9 @@
 Author: Brooke Czerwinski
 
 This repository displays some of the programming coursework I completed while obtaining my CS degree at Portland State University. It holds projects that were too small for their own repo, but are good examples of C++, parallel programming, and more.
-# Included
 
+
+# Work Included in This Repository
 
 ## CS 350 - Algorithms and Complexity (2022)
 
