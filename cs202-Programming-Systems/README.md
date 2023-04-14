@@ -1,19 +1,13 @@
 # Communication App for CS202 Programming Systems
-Written in C++ in 2020.
+This software simulates a communication system, allowing users to manage contacts and their associated devices, including landlines, tablets, and smartphones. Users can send and receive simulated calls and text messages, and the application maintains communication logs for each device. The program demonstrates the use of object-oriented programming techniques, focusing on inheritance and operator overloading, as well as the implementation of custom classes like a String class.
 
-Mimics the workings of a communication system.
+Features of this software include:
 
-This software allows you to:
 - Add a new contact to your contacts list.
-- Assign different devices to those contacts (e.g., landline, tablet, or smartphone). Each of these devices is capable of receiving different types of communications.
-    - Landline: phone calls only
-    - Tablets: text messages only
-    - Smartphone: both phone calls and text messages
-- Use that communication method to send a fake message or make a fake call.
-- Log the record of your communications.
-- View the details of your account, including your lines and communication log.
-
-The assignment focuses on inheritance and operator overloading. I was not allowed to use the built-in string class but was allowed to write my own. This custom string class can be found in `utilities.cpp`.
+- Assign different devices (landline, tablet, or smartphone) to contacts, each with unique communication capabilities.
+- Send and receive simulated phone calls and text messages.
+- Maintain and view communication logs for each device.
+- Access and manage account details, including lines and communication logs.
 
 Some parts of this README.md were generated using ChatGPT, but all code was written by Brooke Czerwinski.
 

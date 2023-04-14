@@ -199,7 +199,7 @@ Contact& Contact::operator = (const Contact& source) {
 			delete contactName_;
 			contactName_ = nullptr;
 		}
-		
+
 		// If there is anything in the source contact name copy it
 		if (source.contactName_ != nullptr) {
 			contactName_ = new String(source.contactName_);
@@ -285,7 +285,6 @@ bool operator < (const Contact& op1, const String& op2) {
 	return (*op1.contactName_ < op2);
 }
 
-
 // <= operator overloading
 bool operator <= (const Contact& op1, const Contact& op2) {
 	return (*op1.contactName_ <= *op2.contactName_);
@@ -298,7 +297,6 @@ bool operator <= (const String& op1, const Contact& op2) {
 bool operator <= (const Contact& op1, const String& op2) {
 	return (*op1.contactName_ <= op2);
 }
-
 
 // > operator overloading
 bool operator > (const Contact& op1, const Contact& op2) {
@@ -313,7 +311,6 @@ bool operator > (const Contact& op1, const String& op2) {
 	return (*op1.contactName_ > op2);
 }
 
-
 // >= operator overloading
 bool operator >= (const Contact& op1, const Contact& op2) {
 	return (*op1.contactName_ >= *op2.contactName_);
@@ -326,7 +323,6 @@ bool operator >= (const String& op1, const Contact& op2) {
 bool operator >= (const Contact& op1, const String& op2) {
 	return (*op1.contactName_ >= op2);
 }
-
 
 // != operator overloading
 bool operator != (const Contact& op1, const Contact& op2) {
@@ -341,7 +337,6 @@ bool operator != (const Contact& op1, const String& op2) {
 	return (*op1.contactName_ != op2);
 }
 
-
 // == operator overloading
 bool operator == (const Contact& op1, const Contact& op2) {
 	return (*op1.contactName_ == *op2.contactName_);
@@ -355,11 +350,9 @@ bool operator == (const Contact& op1, const String& op2) {
 	return (*op1.contactName_ == op2);
 }
 
-
 // >> operator overloading
 istream& operator >> (istream& in, Contact& aContact) {
 	String	temp;
-
 
 	in >> temp;
 	if (aContact.contactName_ != nullptr) {
@@ -369,7 +362,6 @@ istream& operator >> (istream& in, Contact& aContact) {
 
 	return in;	
 }
-
 
 // << operator overloading
 ostream& operator << (ostream& out, const Contact& op2) {
@@ -432,7 +424,6 @@ int Contact::interface() {
 	return successValue;
 }
 
-
 int Contact::add() {
 	int 	successValue = 0;
 	char 	inputBuffer = 0;
@@ -469,7 +460,6 @@ int Contact::add() {
 	return successValue;
 }
 
-
 int Contact::add(const DeviceType& aDeviceType) {
 	int successValue = 0;
 	String	phoneBuffer;
@@ -505,11 +495,9 @@ int Contact::add(const DeviceType& aDeviceType) {
 	return successValue;
 }
 
-
 int Contact::add(const Device* source) {
 	return add(head_, source);
 }
-
 
 int Contact::add(DeviceNode*& head, const Device* source) {
 	int successValue = 0;
@@ -530,7 +518,6 @@ int Contact::add(DeviceNode*& head, const Device* source) {
 
 	return successValue;
 }
-
 
 int Contact::remove() {
 	int 	successValue = 1;
@@ -645,8 +632,6 @@ int Contact::viewDevice() {
 	return successValue;
 }
 
-
-
 int Contact::viewDevice(DeviceNode*& head, const int& entryToView, int& currentEntry) {
 	int successValue = 0;
 
@@ -668,7 +653,6 @@ int Contact::viewDevice(DeviceNode*& head, const int& entryToView, int& currentE
 
 	return successValue;
 }
-
 
 int Contact::display() const {
 	int successValue = 0;
@@ -795,7 +779,6 @@ ContactVertex* ContactVertex::getLeft() const {
 void ContactVertex::setLeft(ContactVertex*& left) {
 	left_ = left;
 }
-
 
 ContactVertex*& ContactVertex::getRight() {
 	return right_;
