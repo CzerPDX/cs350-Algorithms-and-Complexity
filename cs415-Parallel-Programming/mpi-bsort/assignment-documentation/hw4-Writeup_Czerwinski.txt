@@ -1,0 +1,22 @@
+Brooke Czerwinski
+HW4 Writeup 
+CS 415 - Parallel Programming
+
+The first part of this assignment (bsort-file.c) asked us to write a program that opened a file,
+gave the contents of it to the bucket_sort routine, and then saved the sorted array back out to
+a file using fread and fwrite. This was interesting to me because I'd never used these particular
+routines before, and I notice they are very similar in structure to the MPI read/write routines
+that we've been workign with in the past few labs.
+
+The most difficult part of this lab was keeping track of everything. With so many arrays and transfers
+happening implicitly through parallelism, I ended up making two mistakes that cost me hours. In both
+cases I simply used the wrong variable. In one case I used the wrong array name, and in another I used
+the wrong index variable. It was easier to make this mistake than I would have guessed at the start,
+even with some experience using MPI. However, it's hard to track down simple issues sometimes
+without being able to rely on a debugger. 
+
+Instead of being able to see exactly where something was going wrong I needed to use print statements. 
+Print statements can be helpful, but in circumstances where your mistake almost emulates correct behavior,
+it can sometimes be hard to see the pattern. If the behavior comes close enough to what you mean to 
+accomplish but fails weirdly, it can make it very tough to suss out what's happening. This really drove
+home how much I have to know about what's going on so I can better debug things without the aid of a debugger.

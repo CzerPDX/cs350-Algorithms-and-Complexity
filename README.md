@@ -6,6 +6,22 @@ This repository displays some of the programming coursework I completed while ob
 
 # Work Included in This Repository
 
+## CS 415 - Parallel Programming (2022)
+
+### Bucket Sort (C and MPI)
+These files were for practicing parallel file-IO and message-passing with several versions of bucket sort. They have been implemented in C and MPI.
+
+### Odd-Even Sort & Producer-Consumer (Chapel)
+These files are racticing programming in the emerging parallel language, Chapel. You are going to write
+programs for two problems, oddeven sort and producer-consumer, each with two versions. For this assignment,
+all students do the same work.
+
+### Prime-Finding Program (C++)
+These files practice shared-memory programming in parallel with a prime-finding program. Timing data was collected and performance was also analyzed.
+
+### Consumer Producer (C++ and Java)
+Two programs: Both a C++-based and Java-absed producer/consumer program for parallel threads using a queue.
+
 ## CS 350 - Algorithms and Complexity (2022)
 
 ### Pebble Collecting Robot (C++)

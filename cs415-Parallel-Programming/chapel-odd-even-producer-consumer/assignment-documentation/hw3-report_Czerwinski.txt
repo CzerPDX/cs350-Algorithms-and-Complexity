@@ -1,0 +1,88 @@
+Brooke Czerwinski
+CS 415 Parallel Programming
+HW3 Report
+
+The status of my programs is that each of them works to specifications, as far as I'm able
+to tell. Some behavior patterns have been:
+  - oddeven1 seems to usually sort the list and then run additional sorts that aren't 
+    necessary. 
+  - oddeven2, on the other hand, often terminates early. Usually oddeven2 can sort a list 
+    of 10 integers somewhere between 2 and 4 rounds. 
+  - Prodcons1 seems to be pretty random about which number is being added or removed. The 
+    only bias I'm seeing in distribution is that there tend to be more producers at the
+    start and more consumers at the end.
+  - Prodcons2 behaves almost exactly like prodcons1. It has a heavier distribution of
+    producers near the beginnign and heavier distribution of consumers near the end. The
+    consumers themselves seem to be very evenly distributed, however. As do the numbers that
+    get removed.
+
+
+The Odd-even sort was very straightforward for me. I didn't have much trouble turning the 
+program into a parallel version at all with Chapel. The producer consumer program was more
+difficult for me, by comparison. At first I had my consumers read an atomic variable in 
+the condition of the while statement and then update it later within the body of the
+statement. This caused my program to hang usually, as some threads would enter the body of
+the while but then another thread would take the last items out of the queue. If they still
+tried to remove something from the queue after that it would hang.
+
+To fix this I did a fetchAdd and THAT value was compared to the value of numItems. Each time 
+the while loop was enetered it was like it held a ticket for an item that lived in the queue.
+Threads that were not able to get a "ticket" (because incrementing for them sent totalRemoved
+equal to or greater than the value of numItems) simply moved on past the while loop!
+
+
+Appendix: Sample outputs from oddeven sort programs:
+
+$ ./oddeven1 -nl 8
+Init: 6 243 214 18 211 253 213 140 242 198
+t=1: 6 18 243 211 214 140 253 198 213 242
+t=2: 6 18 211 140 243 198 214 213 253 242
+t=3: 6 18 140 198 211 213 243 214 242 253
+t=4: 6 18 140 198 211 213 214 242 243 253
+t=5: 6 18 140 198 211 213 214 242 243 253
+10 element array is sorted.
+
+$ ./oddeven1 -nl 8
+Init: 127 60 110 223 64 248 179 255 50 144
+t=1: 60 110 127 64 223 179 248 50 255 144
+t=2: 60 64 110 127 179 50 223 144 248 255
+t=3: 60 64 110 50 127 144 179 223 248 255
+t=4: 60 50 64 110 127 144 179 223 248 255
+t=5: 50 60 64 110 127 144 179 223 248 255
+10 element array is sorted.
+
+$ ./oddeven1 --WORST=true -nl 8
+Init: 11 10 9 8 7 6 5 4 3 2
+t=1: 10 8 11 6 9 4 7 2 5 3
+t=2: 8 6 10 4 11 2 9 3 7 5
+t=3: 6 4 8 2 10 3 11 5 9 7
+t=4: 4 2 6 3 8 5 10 7 11 9
+t=5: 2 3 4 5 6 7 8 9 10 11
+10 element array is sorted.
+
+$ ./oddeven1 --DEBUG=false -nl 8
+10 element array is sorted.
+
+
+$ ./oddeven2 -nl 8
+Init: 140 50 1 81 194 177 158 115 101 211
+t=1: 50 1 140 81 177 115 194 101 158 211
+t=2: 1 50 81 115 140 101 177 158 194 211
+t=3: 1 50 81 101 115 140 158 177 194 211
+Early termination saved 1 rounds!
+10 element array is sorted.
+
+$ ./oddeven2 -nl 8
+Init: 77 144 67 175 255 57 239 136 235 198
+t=1: 77 67 144 57 175 136 255 198 239 235
+t=2: 67 57 77 136 144 175 198 235 255 239
+Early termination saved 2 rounds!
+10 element array is sorted.
+
+$ ./oddeven2 -nl 8
+Init: 190 123 64 102 246 42 40 170 77 31
+t=1: 123 64 190 42 102 40 246 31 170 77
+t=2: 64 42 123 40 190 31 102 77 246 170
+t=3: 42 40 64 31 123 77 190 102 170 246
+t=4: 40 31 42 64 77 102 123 170 190 246
+10 element array is sorted.

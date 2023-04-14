@@ -1,0 +1,107 @@
+=========================================================================================================================
+
+Brooke Czerwinski
+HW2 - Primes Timing Study
+CS 415 Parallel Programming
+
+========================================================================================================================
+
+prime.cpp:
+
+N = 1000		0.035 ms
+N = 10000		0.37 ms
+N = 100000		3.7 ms
+N = 1000000		20 ms
+
+
+prime-omp.cpp:
+
+	P = 	1			2			4			8			16			32			64			128
+
+N = 1000	0.091 ms	0.31 ms		0.53 ms		0.96 ms		1.5 ms		2.7 ms		18 ms		31 ms		
+N = 10000	0.25 ms		0.51 ms		0.74 ms		1 ms		1.3 ms		2.8 ms		31 ms		53 ms		
+N = 100000	2.2 ms		2.5 ms		1.9 ms		2.3 ms		2 ms		3.8 ms		66 ms		1.3e+02 ms		
+N = 1000000	17 ms		15 ms		11 ms		7 ms		8.1 ms		10 ms		1.6e+02 ms	2.9e+02 ms		
+
+
+prime-omp2.cpp:
+
+	P = 	1			2			4			8			16			32			64			128
+
+N = 1000	9.6 ms		12 ms		10 ms		7.9 ms		10 ms		9.1 ms		10 ms		12 ms		
+N = 10000	5.8 ms		9.8 ms		10 ms		12 ms		14 ms		16 ms		14 ms		18 ms		
+N = 100000	16 ms		16 ms		20 ms		26 ms		40 ms		68 ms		52 ms		60 ms		
+N = 1000000	63 ms		1e+02 ms	1.2e+02 ms	2e+02 ms	2.8e+02 ms	3.4e+02 ms	3.4e+02 ms	3.6e+02 ms		
+
+
+
+prime-par1.cpp:
+
+	P = 	1			2			4			8			16			32			64			128
+
+N = 1000	0.22 ms		0.44 ms		0.37 ms		0.94 ms		1.9 ms		3.4 ms		7.1 ms		8.9 ms		
+N = 10000	0.83 ms		0.65 ms		0.72 ms		1.5 ms		1.8 ms		3.7 ms		7.4 ms		9.9 ms		
+N = 100000	3.3 ms		3.1 ms		2.5 ms		2.8 ms		15 ms		4.7 ms		6.1 ms		13 ms		
+N = 1000000	27 ms		10 ms		12 ms		14 ms		11 ms		19 ms		19 ms		34 ms		
+
+
+
+prime-par2.cpp:
+
+	P = 	1			2			4			8			16			32			64			128
+
+N = 1000	0.48 ms		0.35 ms		0.55 ms		1.5 ms		2.6 ms		5.7 ms		11 ms		12 ms		
+N = 10000	0.82 ms		0.55 ms		0.83 ms		1.5 ms		3.3 ms		8.2 ms		8.1 ms		23 ms		
+N = 100000	1.9 ms		2.2 ms		1.8 ms		2.9 ms		3.8 ms		6.9 ms		12 ms		19 ms		
+N = 1000000	15 ms		16 ms		15 ms		16 ms		14 ms		20 ms		26 ms		38 ms		
+
+
+
+prime-par3.cpp:
+
+	P = 	1			2			4			8			16			32			64			128
+
+N = 1000	0.22 ms		0.31 ms		0.58 ms		1.1 ms		4.3 ms		5.6 ms		12 ms		16 ms		
+N = 10000	0.97 ms		0.92 ms		1.1 ms		2.3 ms		3.8 ms		8.4 ms		11 ms		18 ms		
+N = 100000	5.5 ms		4.8 ms		4.5 ms		3.7 ms		5.3 ms		9.4 ms		15 ms		26 ms		
+N = 1000000	44 ms		57 ms		23 ms		13 ms		15 ms		17 ms		25 ms		30 ms		
+
+
+
+Analysis:
+========================================================================================================================
+General observations:
+
+Single thread parallel versions are not faster:
+	when only given one thread, the parallel versions all performed either about as well as the sequential or worse. 
+	This makes sense due to the additional overhead associated with parallel programming added with no additional 
+	actual work being performed because there is still only one thread.
+	Sequential version is the fastest almost 
+
+Multiple threads seem to have a sweet spot around N = 100000 and aroudn 2-4 cores
+	I believe this is due to a nice balance between workload and thread management overhead. There seems to generally
+	be a better increase in performance when we are using between 2 and 8 cores when compared to sequential
+
+Slowdown when more cores are requested than are available on the machine:
+	These timings were performed on the babbage server that is a 45-CPU. In the above timings, many of the largest
+	N values do have a noticeable speed increase from the sequential version, except for those that are trying to
+	run more than 45 cores. I believe this is because the system will be spending overhead to create or try to 
+	create and manage more threads than are possible to do the work, so there will be portions of the work that are
+	done sequentially. 
+
+	When we try to use more cores than are available on the system we see a slowdown due to two factors: general
+	overhead from parallel processing an an additional portion of work that will now be performed sequentially.
+
+========================================================================================================================
+par1, par2, and par3 are all very fast for values of N >= 100000 and 2 < P < 16
+
+	I suspect this program is the fastest because I was able to very selectively choose which portions to make
+	critical and let as much run in parallel as possible.
+
+========================================================================================================================
+prime-omp2.cpp is extremely slow:
+
+	I've been over this program several times and I am surprised it is as as slow as it is. I can clearly see it's
+	the slowest of all programs, including the sequential version. When running tests I was able to verify that
+	the worker threads were running in parallel, but for some reason it is the worst of the bunch.
+========================================================================================================================

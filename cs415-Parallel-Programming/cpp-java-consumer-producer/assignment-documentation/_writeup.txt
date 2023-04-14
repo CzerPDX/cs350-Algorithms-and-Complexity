@@ -1,0 +1,28 @@
+﻿Brooke Czerwinski
+CS 415 Parallel Programming
+Assignment #1
+Writeup
+
+
+The C++ and Java versions of the programs both pass all their tests. They both display interleaving and are working in parallel, though this took a considerable amount of effort from me for the Java version.
+
+
+When working with the C++ version, I was able to lean on my experience in the lab with the producer/consumer problem. I approached this portion of the assignment trying to improve on my lab version. I had previously used two bools to support the condition variable: one to tell when the queue was full and another to tell when the queue was empty. Additionally, I had no way to keep multiple threads from outputting their starting and ending messages at the same time (which would be unreadable)
+
+
+First, I started out by trying to use a single bool. I realized that a single bool may actually not be sufficient. We need to know when the queue is full, empty, or neither full nor empty. Without that third state the queue would always read as either full or empty, and nothing in between. I ultimately returned to using two separate bools for this reason.
+
+
+In retrospect, I think I ended up overdoing it on the I/O synchronization. I ended up having it work on the main condition variable. This means that not only can another thread not print another statement while one thread is printing a statement, other threads ALSO can't access the queue when a thread is printing a statement. That needlessly restricts the amount of time the threads have to do their producing and consuming work.
+
+
+When working with the java version I hit several hurdles. I had to refamiliarize myself with Java, then I had to wrap my head around the way Java does its parallelization, and finally I had to learn the nuances of how the parallel threads needed to work so they would not overwrite one another.
+
+
+At the start, just remembering how to work in java itself was daunting, but I started with a hello world followed by some of the simple parallel java examples from lecture. Eventually I was using lambdas and creating subclasses and feeling pretty comfortable.
+
+
+Creating ProdCons1.java wasn't too difficult, but when I got to ProdCons2 I got very stumped. I first tried to use two different locking parameters for the synchronized adding and removing blocks, but then realized I'd created a race condition because they could both be accessing the queue at the same time. Then I tried to nest a smaller synchronization section that could be either for "queueFull" or "queueEmpty" within a larger "queueAccess" block, but when the thread waited on "queueFull" or "queueEmpty" it wasn't releasing the outside "queueAccess" lock.
+
+
+I eventually solved it when I thought back to the C++ version of the program. I'd read about the optional bool parameter for C++'s condition variables and remembered that it was like a secondary check in case the thread had been woken up spuriously. I decided to use that to my favor and changed each synchronization to use only one layer of the "queueAccess" lock. Then, once it gets the lock, the threads will check to see if their relevant bool is true or false. For example: The consumer thread first gets the lock, then checks to see if threadEmpty == true. If the thread is empty it releases the lock and waits until it is woken up again. When it's woken, it gets the lock and looks again to see if the queue is empty. If it is empty it repeats itself until it pulls something out, but if it's not empty it simply goes forward.
