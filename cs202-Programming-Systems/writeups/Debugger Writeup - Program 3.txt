@@ -1,0 +1,9 @@
+Brooke Czerwinski
+CS202
+Project 3 - Debugger Writeup
+
+I always use both GDB and Valgrind when debugging my programs and include the -Wall flag, which will display all warnings.  Combined with frequent compiling, this allows me to see problems when they occur. If I have a page full of warnings it's usually because I've done one thing that caused a cascade through many other portions of the program (I'm looking at you, unpaired curly brace), rather than many individual errors. 
+
+In addition, the ability to step through my program with GDB has been very helpful throughout this project. One example was that I have all 3 types of my devices using dynamic binding for display, so when one of my devices was displaying what looked like my base class' information, I assumed I had improperly done the dynamic binding setup for that class. However, when I looked it seemed like my dynamic binding was corred. It was only after I walked through the error with GDB, I realized I had actually just typed return instead of my variable name, so it was skipping part of the function. This made it LOOK like it was an issue with my dynamic binding, but the symptoms were just mimicking that problem.  
+
+This is a great example of how, even if you feel like you can identify problems as they occur, using a debugger is extremely important. Sometimes a problem can look like one thing, but actually be something else entirely.
